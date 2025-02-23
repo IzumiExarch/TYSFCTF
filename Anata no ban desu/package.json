@@ -4,8 +4,8 @@
     "description": "A simple project.",
     "main": "server.js",
     "scripts": {
-      "start": "node backend/server.js",
-      "dev": "nodemon backend/server.js"
+      "start": "node frontend/Login.js",
+      "dev": "nodemon frontend/Login.js"
     },
     "author": "Izumi and Hongyo",
     "license": "ISC",
