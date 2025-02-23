@@ -4,8 +4,8 @@
     "description": "A simple project.",
     "main": "server.js",
     "scripts": {
-      "start": "node Anata no ban desu/backend/server.js",
-      "dev": "nodemon Anata no ban desu/backend/server.js"
+      "start": "node server.js",
+      "dev": "nodemon server.js"
     },
     "author": "Izumi and Hongyo",
     "license": "ISC",
