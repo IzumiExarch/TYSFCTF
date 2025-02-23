@@ -1,12 +1,14 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css"; // 可選的樣式表
-import App from "./App"; // 引入主應用組件
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css'; // 如果有自訂樣式
+import App from './App'; // 假設有一個 App.js
+import reportWebVitals from './reportWebVitals'; // 如果有這個功能
 
-// React 18 引入的根 API
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
   <React.StrictMode>
-    <App /> {/* 將 App 組件渲染到 HTML */}
-  </React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
 );
+
+reportWebVitals();
