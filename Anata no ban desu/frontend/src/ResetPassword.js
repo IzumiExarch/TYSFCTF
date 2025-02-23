@@ -3,10 +3,10 @@ import React, { useState } from "react";
 const ResetPassword = ({ onShowFlag }) => {
   const [email, setEmail] = useState("");
   const [answer, setAnswer] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(""); // 儲存錯誤信息
 
   const handleReset = async () => {
-    setError("");
+    setError(""); // 清除錯誤信息
 
     const response = await fetch("http://localhost:3001/reset-password", {
       method: "POST",
@@ -16,19 +16,29 @@ const ResetPassword = ({ onShowFlag }) => {
 
     const data = await response.json();
     if (!response.ok) {
-      setError(data.message);
+      setError(data.message); // 顯示錯誤信息
     } else {
-      onShowFlag(data.flag);
+      onShowFlag(data.flag); // 顯示 FLAG
     }
   };
 
   return (
     <div>
       <h2>重置密碼</h2>
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="text" placeholder="回答安全性問題" value={answer} onChange={(e) => setAnswer(e.target.value)} />
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="回答安全性問題"
+        value={answer}
+        onChange={(e) => setAnswer(e.target.value)}
+      />
       <button onClick={handleReset}>提交</button>
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} {/* 顯示錯誤信息 */}
     </div>
   );
 };
