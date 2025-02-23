@@ -1,14 +1,12 @@
-// src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css'; // 如果有樣式檔案，這裡引入
-import App from './App'; // 引入主組件
-import reportWebVitals from './reportWebVitals'; // 可選，用來測量性能
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css"; // 可選的樣式表
+import App from "./App"; // 引入主應用組件
 
-// 渲染 React 組件到 DOM
-ReactDOM.render(
+// React 18 引入的根 API
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root') // React 應該會將組件渲染到這個 DOM 元素中
+    <App /> {/* 將 App 組件渲染到 HTML */}
+  </React.StrictMode>
 );
