@@ -1,17 +1,14 @@
-// 引入必要的模組
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'; // 如果有樣式檔案，這裡引入
-import App from './App'; // 引入主組件
-import reportWebVitals from './reportWebVitals'; // 可選，用來測量性能
+import './index.css'; // 如果有自訂樣式
+import App from './App'; // 假設有一個 App.js
+import reportWebVitals from './reportWebVitals'; // 如果有這個功能
 
-// 渲染 React 組件到 DOM
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root') // React 應該會將組件渲染到這個 DOM 元素中
+  document.getElementById('root')
 );
 
-// 如果你想測量性能，可以傳入 reportWebVitals
 reportWebVitals();
