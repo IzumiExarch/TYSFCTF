@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css'; // 如果有自訂樣式
 import App from './App'; // 假設有一個 App.js
-import reportWebVitals from './reportWebVitals'; // 如果有這個功能
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,5 +8,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
-reportWebVitals();
