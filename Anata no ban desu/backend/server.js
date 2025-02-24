@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 10000;
+const port = process.env.PORT || 8080;
 app.use(cors());
 app.use(express.json());  // 使 Express 解析 JSON 請求
 
@@ -46,6 +46,6 @@ app.post('/reset-password', (req, res) => {
 });
 
 // 啟動伺服器
-app.listen(PORT,'0.0.0.0', () => {
+app.listen(PORT,'0.0.0.0:8080', () => {
     console.log(`Server is running on port ${PORT}`);
   });
