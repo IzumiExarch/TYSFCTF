@@ -1,47 +1,62 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const Login = ({ onLogin, onForgotPassword }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // 儲存錯誤信息
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleLogin = async () => {
-    setError(""); // 清除錯誤信息
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
-    const response = await fetch("http://localhost:3001/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch('http://localhost:3001/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
 
-    const data = await response.json();
-    if (!response.ok) {
-      setError(data.message); // 顯示錯誤信息
-    } else {
-      onLogin(); // 登入成功，觸發 onLogin
+      const data = await response.json();
+
+      if (response.ok) {
+        // 成功登入後的處理
+        console.log('登入成功:', data);
+      } else {
+        // 伺服器返回錯誤
+        setError(data.message);
+      }
+    } catch (err) {
+      // 捕捉網絡錯誤
+      setError('無法連接到伺服器');
+      console.error('請求錯誤:', err);
     }
   };
 
   return (
     <div>
       <h2>登入</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="密碼"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>登入</button>
-      <button onClick={onForgotPassword}>忘記密碼</button>
-      {error && <p>{error}</p>} {/* 顯示錯誤信息 */}
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="電子郵件"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="密碼"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">登入</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
-};
+}
 
 export default Login;
