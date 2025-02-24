@@ -4,7 +4,7 @@
   "description": "CTF authentication app with login, reset password, and flag display",
   "main": "src/index.js",
   "scripts": {
-    "start": "cd frontend && yarn start",
+    "start": "cd frontend",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
