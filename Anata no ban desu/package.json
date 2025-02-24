@@ -2,9 +2,9 @@
   "name": "ctf-auth-app",
   "version": "1.0.0",
   "description": "CTF authentication app with login, reset password, and flag display",
-  "main": "src/index.js",
+  "main": "frontend/src/index.js",
   "scripts": {
-    "start": "cd frontend",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
