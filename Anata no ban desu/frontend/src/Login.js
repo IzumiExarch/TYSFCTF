@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -9,29 +10,18 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:10000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
+      const response = await axios.post('http://localhost:3001/login', {
+        email: email,
+        password: password,
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // 成功登入後的處理
-        console.log('登入成功:', data);
-      } else {
-        // 伺服器返回錯誤
-        setError(data.message);
-      }
+      console.log('登入成功:', response.data);
     } catch (err) {
-      // 捕捉網絡錯誤
-      setError('無法連接到伺服器');
+      if (err.response) {
+        setError(err.response.data.message);
+      } else {
+        setError('無法連接到伺服器');
+      }
       console.error('請求錯誤:', err);
     }
   };
