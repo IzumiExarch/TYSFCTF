@@ -1,46 +1,60 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const ResetPassword = ({ onShowFlag }) => {
-  const [email, setEmail] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [error, setError] = useState(""); // 儲存錯誤信息
+function ResetPassword({ onShowFlag }) {
+  const [email, setEmail] = useState('');
+  const [securityAnswer, setSecurityAnswer] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleReset = async () => {
-    setError(""); // 清除錯誤信息
+  const handleResetPassword = async (event) => {
+    event.preventDefault();
 
-    const response = await fetch("http://localhost:10000/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, answer }),
-    });
+    try {
+      const response = await axios.post('http://localhost:3001/reset-password', {
+        email: email,
+        securityAnswer: securityAnswer,
+        newPassword: newPassword,
+      });
 
-    const data = await response.json();
-    if (!response.ok) {
-      setError(data.message); // 顯示錯誤信息
-    } else {
-      onShowFlag(data.flag); // 顯示 FLAG
+      onShowFlag(response.data.flag);
+    } catch (err) {
+      if (err.response) {
+        setError(err.response.data.message);
+      } else {
+        setError('無法連接到伺服器');
+      }
+      console.error('請求錯誤:', err);
     }
   };
 
   return (
     <div>
       <h2>重置密碼</h2>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="回答安全性問題"
-        value={answer}
-        onChange={(e) => setAnswer(e.target.value)}
-      />
-      <button onClick={handleReset}>提交</button>
-      {error && <p>{error}</p>} {/* 顯示錯誤信息 */}
+      <form onSubmit={handleResetPassword}>
+        <input
+          type="email"
+          placeholder="電子郵件"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="安全問題的答案"
+          value={securityAnswer}
+          onChange={(e) => setSecurityAnswer(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="新密碼"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+        />
+        <button type="submit">重置密碼</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
-};
+}
 
 export default ResetPassword;
