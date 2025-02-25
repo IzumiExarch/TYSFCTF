@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3001;
 app.use(express.json());  // 使 Express 解析 JSON 請求
 
 // 假設用戶資料（包括安全問題和答案）
