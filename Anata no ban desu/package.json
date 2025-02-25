@@ -11,7 +11,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
-    "cors":"2.8.5"
+    "cors":"2.8.5",
+    "axio":"1.7.9"
   },
   "devDependencies": {
     "react-refresh": "^0.11.0"
