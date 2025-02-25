@@ -1,6 +1,8 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 app.use(express.json());  // 使 Express 解析 JSON 請求
 
 // 假設用戶資料（包括安全問題和答案）
@@ -44,7 +46,15 @@ app.post('/reset-password', (req, res) => {
     return res.json({ message: "密碼已成功重置" });
 });
 
+// 設定靜態檔案目錄為 frontend/build
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+// 處理所有其他路由，返回前端應用的 index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
 // 啟動伺服器
-app.listen(PORT,'0.0.0.0', () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on port ${PORT}`);
+});
