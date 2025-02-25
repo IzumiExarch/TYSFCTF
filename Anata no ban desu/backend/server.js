@@ -1,7 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// 啟用 CORS
+app.use(cors());
 
 app.use(express.json());  // 使 Express 解析 JSON 請求
 
