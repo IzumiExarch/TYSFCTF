@@ -8,7 +8,7 @@ const ResetPassword = ({ onShowFlag }) => {
   const handleReset = async () => {
     setError(""); // 清除錯誤信息
 
-    const response = await fetch("http://tyshctf-1.onrender.com/reset-password", {
+    const response = await fetch("http://localhost:10000/reset-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, answer }),
