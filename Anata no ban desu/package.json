@@ -4,10 +4,9 @@
   "description": "CTF authentication app with login, reset password, and flag display",
   "main": "frontend/src/index.js",
   "scripts": {
-    "start": "yarn --cwd frontend start",
-    "build": "yarn --cwd frontend build",
-    "test": "yarn --cwd frontend test",
-    "eject": "yarn --cwd frontend eject"
+    "start": "node backend/server.js",
+    "build": "cd frontend && npm run build",
+    "install": "npm install && cd frontend && npm install",
   },
   "dependencies": {
     "react": "^18.2.0",
