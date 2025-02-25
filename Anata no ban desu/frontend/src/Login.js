@@ -9,7 +9,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch('http://tyshctf-1.onrender.com/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
