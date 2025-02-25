@@ -10,7 +10,7 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/login', {
+      const response = await axios.post('http://tyshctf-1.onrender.com/login', {
         email: email,
         password: password,
       });
