@@ -47,11 +47,11 @@ app.post('/reset-password', (req, res) => {
 });
 
 // 設定靜態檔案目錄為 frontend/build
-app.use(express.static(path.join(__dirname, 'frontend/build')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
 // 處理所有其他路由，返回前端應用的 index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
 
 // 啟動伺服器
