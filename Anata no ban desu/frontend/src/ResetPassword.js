@@ -11,7 +11,7 @@ function ResetPassword({ onShowFlag }) {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/reset-password', {
+      const response = await axios.post('http://tyshctf-1.onrender.com/reset-password', {
         email: email,
         securityAnswer: securityAnswer,
         newPassword: newPassword,
