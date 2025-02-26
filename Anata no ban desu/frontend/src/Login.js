@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://tyshctf-1.onrender.com';
 
 function Login() {
@@ -11,18 +12,15 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://tyshctf-1.onrender.com/login', {
-        email: email,
-        password: password,
+      const response = await axios.post(`${API_BASE_URL}/login`, {
+        email,
+        password,
       });
 
       console.log('登入成功:', response.data);
+      setError('');
     } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message);
-      } else {
-        setError('無法連接到伺服器');
-      }
+      setError(err.response?.data?.message || '伺服器無回應，請稍後再試');
       console.error('請求錯誤:', err);
     }
   };
