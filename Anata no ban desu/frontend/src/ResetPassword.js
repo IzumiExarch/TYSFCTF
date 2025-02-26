@@ -13,7 +13,7 @@ function ResetPassword({ onShowFlag }) {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/reset-password`, {
+      const response = await axios.post(`${API_BASE_URL}/api/reset-password`, {
         email,
         securityAnswer,
         newPassword,
