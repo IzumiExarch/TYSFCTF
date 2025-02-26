@@ -21,7 +21,8 @@ const users = {
 // 登入路由
 app.post('/api/login', (req, res) => {
   console.log('Login route triggered');
-  
+  console.log('Request body:', req.body);  // 顯示請求的 body 內容
+
   const { email, password } = req.body;
 
   // 檢查用戶是否存在
@@ -30,15 +31,22 @@ app.post('/api/login', (req, res) => {
     return res.status(400).json({ message: "用戶不存在" });
   }
 
-  // 無論密碼為何，始終返回密碼錯誤
-  console.log('Password incorrect');
-  return res.status(400).json({ message: "密碼錯誤" });
+  // 檢查密碼
+  if (users[email].password !== password) {
+    console.log('Incorrect password');
+    return res.status(400).json({ message: "密碼錯誤" });
+  }
+
+  // 登入成功
+  console.log('Login successful');
+  return res.json({ message: "登入成功" });
 });
 
 // 重置密碼路由
 app.post('/api/reset-password', (req, res) => {
   console.log('Reset password route triggered');
-  
+  console.log('Request body:', req.body);  // 顯示請求的 body 內容
+
   const { email, securityAnswer, newPassword } = req.body;
 
   // 檢查用戶是否存在
@@ -49,13 +57,13 @@ app.post('/api/reset-password', (req, res) => {
 
   // 檢查安全問題答案是否正確
   if (users[email].securityAnswer !== securityAnswer) {
-    console.log('Security answer incorrect');
+    console.log('Incorrect security answer');
     return res.status(400).json({ message: "安全問題回答錯誤" });
   }
 
   // 更新密碼
   users[email].password = newPassword;
-  console.log('Password successfully updated');
+  console.log('Password reset successful');
   return res.json({ message: "密碼已成功重置" });
 });
 
