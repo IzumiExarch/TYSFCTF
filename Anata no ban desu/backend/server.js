@@ -11,8 +11,12 @@ app.use(cors({
   allowedHeaders: ['Content-Type']
 }));
 
-app.use(express.json()); // 解析 JSON 請求
+app.use(express.json());// 解析 JSON 請求
 
+app.use((req, res, next) => {
+  console.log(`收到請求: ${req.method} ${req.url}`);
+  next();
+});
 // 模擬用戶資料
 const users = {
   "admin@example.com": {
