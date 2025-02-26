@@ -1,7 +1,8 @@
+// login.js 示例
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://tyshctf-1.onrender.com';
+const API_BASE_URL = 'https://tyshctf-1.onrender.com/api'; // 確保這裡有 /api 前綴
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -12,16 +13,17 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/login`, {
-        email,
-        password,
+      const response = await axios.post(`${API_BASE_URL}/login`, {
+        email: email,
+        password: password,
       });
-
       console.log('登入成功:', response.data);
-      setError('');
     } catch (err) {
-      setError(err.response?.data?.message || '伺服器無回應，請稍後再試');
-      console.error('請求錯誤:', err);
+      if (err.response) {
+        setError(err.response.data.message);
+      } else {
+        setError('無法連接到伺服器');
+      }
     }
   };
 
