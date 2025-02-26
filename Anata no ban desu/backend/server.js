@@ -5,19 +5,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // 啟用 CORS
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type']
-}));
+app.use(cors({ origin: '*' }));
 
-app.use(express.json());// 解析 JSON 請求
+// 解析 JSON 請求
+app.use(express.json());
 
-app.use((req, res, next) => {
-  console.log(`收到請求: ${req.method} ${req.url}`);
-  next();
-});
-// 模擬用戶資料
+// 假設用戶資料（包括安全問題和答案）
 const users = {
   "admin@example.com": {
     "password": "admin123",
@@ -26,7 +19,7 @@ const users = {
   }
 };
 
-// 登入 API
+// API 路由：登入
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -41,7 +34,7 @@ app.post('/login', (req, res) => {
   return res.json({ message: "登入成功" });
 });
 
-// 重置密碼 API
+// API 路由：重置密碼
 app.post('/reset-password', (req, res) => {
   const { email, securityAnswer, newPassword } = req.body;
 
@@ -57,9 +50,10 @@ app.post('/reset-password', (req, res) => {
   return res.json({ message: "密碼已成功重置" });
 });
 
-// 設定靜態目錄
+// 靜態檔案服務
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
+// 前端路由
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
