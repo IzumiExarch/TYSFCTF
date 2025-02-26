@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://tyshctf-1.onrender.com';
 
 function ResetPassword({ onShowFlag }) {
@@ -12,19 +13,19 @@ function ResetPassword({ onShowFlag }) {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://tyshctf-1.onrender.com/reset-password', {
-        email: email,
-        securityAnswer: securityAnswer,
-        newPassword: newPassword,
+      const response = await axios.post(`${API_BASE_URL}/reset-password`, {
+        email,
+        securityAnswer,
+        newPassword,
       });
 
-      onShowFlag(response.data.flag);
-    } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message);
-      } else {
-        setError('無法連接到伺服器');
+      console.log('密碼重置成功:', response.data);
+      setError('');
+      if (response.data.flag) {
+        onShowFlag(response.data.flag);
       }
+    } catch (err) {
+      setError(err.response?.data?.message || '伺服器無回應，請稍後再試');
       console.error('請求錯誤:', err);
     }
   };
