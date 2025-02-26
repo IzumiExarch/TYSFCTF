@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://tyshctf-1.onrender.com/api'; // 確保這裡有 /api 前綴
+const API_BASE_URL = 'https://tyshctf-1.onrender.com/api';  // 確保這裡有 /api 前綴
 
 function ResetPassword({ onShowFlag }) {
   const [email, setEmail] = useState('');
@@ -22,10 +22,16 @@ function ResetPassword({ onShowFlag }) {
       // 如果密碼重置成功，則可以傳遞相應的消息
       onShowFlag(response.data.message);
     } catch (err) {
+      // 詳細錯誤處理
       if (err.response) {
-        setError(err.response.data.message);
+        console.log('Error response:', err.response);
+        setError('伺服器回應錯誤: ' + err.response.data.message);
+      } else if (err.request) {
+        console.log('Error request:', err.request);
+        setError('無法建立連接，請檢查您的網絡連接');
       } else {
-        setError('無法連接到伺服器');
+        console.log('Error message:', err.message);
+        setError('伺服器未響應，請稍後再試');
       }
     }
   };
